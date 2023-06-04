@@ -2,6 +2,32 @@ import { useEffect } from "react"
 import authAxios from "../api/axios"
 
 const Request = ({ page, request, user }) => {
+  const handleAcceptRequest = () => {
+    authAxios
+      .post(`http://127.0.0.1:8000/api/requests/update/${request.id}`, {
+        status: window.localStorage.getItem("role") == 1 ? 1 : 3,
+      })
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((err) => {
+        console.log(err.response.data)
+      })
+  }
+
+  const handleRefuseRequest = () => {
+    authAxios
+      .post(`http://127.0.0.1:8000/api/requests/update/${request.id}`, {
+        status: window.localStorage.getItem("role") == 1 ? 2 : 4,
+      })
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((err) => {
+        console.log(err.response.data)
+      })
+  }
+
   return (
     <div className="bg-white p-4 rounded-lg">
       <div className="flex flex-row">
@@ -47,6 +73,7 @@ const Request = ({ page, request, user }) => {
             <button
               type="button"
               className="flex justify-center focus:outline-none text-white bg-red-500 hover:bg-red-700 font-semibold rounded-lg text-sm px-5 py-2.5 mb-2 w-20 h-9 text-center"
+              onClick={handleRefuseRequest}
             >
               Refuse
             </button>
@@ -58,6 +85,7 @@ const Request = ({ page, request, user }) => {
             <button
               type="button"
               className="flex justify-center focus:outline-none text-white bg-green-700 hover:bg-green-900 font-semibold rounded-lg text-sm px-5 py-2.5 mb-2 w-20 h-9 text-center"
+              onClick={handleAcceptRequest}
             >
               Accept
             </button>

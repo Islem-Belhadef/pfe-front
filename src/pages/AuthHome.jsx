@@ -11,15 +11,12 @@ const AuthHome = () => {
     type == 0 ? "studentHome" : type == 1 ? "hodHome" : "supervisorHome"
 
   const [requests, setRequests] = useState([])
-  //   const [users, setUsers] = useState([])
-  //   let i = 0
 
   useEffect(() => {
     authAxios
       .get("http://127.0.0.1:8000/api/requests")
       .then((response) => {
         setRequests(response.data.internshipRequests)
-        // setUsers(response.data.users)
         console.log(response.data)
       })
       .catch((error) => {

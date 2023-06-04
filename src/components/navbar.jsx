@@ -18,7 +18,7 @@ const Navbar = ({ page }) => {
           About us
         </a>
         <div className="pl-6">
-          {(page === "Home" || page === "Signup") && (
+          {page === "home" && (
             <Link
               to="/Login"
               className="focus:outline-none text-white bg-primary hover:bg-purple-950 font-semibold rounded-lg text-sm px-5 py-2.5 mb-2 w-20 h-9"

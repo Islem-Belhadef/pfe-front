@@ -1,5 +1,5 @@
-import Navbar from "../components/navbar";
-import homeIcon from "../assets/home.svg";
+import Navbar from "../components/navbar"
+import homeIcon from "../assets/home.svg"
 
 const Home = () => {
   return (
@@ -18,7 +18,7 @@ const Home = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

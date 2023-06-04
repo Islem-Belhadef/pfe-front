@@ -11,7 +11,18 @@ const Account = () => {
     e.preventDefault()
     // Handle form submission logic here
   }
-
+  useEffect(() => {
+    authAxios
+      .get("/requests")
+      .then((response) => {
+        setRequests(response.data.requests);
+        setUser(response.data.user);
+        console.error(response.data.requests);
+      })
+      .catch((error) => {
+        console.error(error.response.data);
+      });
+  }, []);
   return (
     <div className="relative font-ralewey">
       <div className="h-screen w-screen flex flex-col items-center justify-center">
@@ -28,7 +39,7 @@ const Account = () => {
                     <RiAccountCircleLine className="text-7xl cursor-pointer" />
                   </h1>
                   <h2 className="text-black font-semibold text-xl py-2 px-4">
-                    Abderrahmane dehdouh
+                  {user.first_name}{user.last_name}
                   </h2>
                 </div>
                 <div className="flex flex-row gap-4">

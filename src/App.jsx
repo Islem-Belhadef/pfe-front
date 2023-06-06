@@ -3,12 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Login from "./pages/Login"
 import Home from "./pages/Home"
 import Signup from "./pages/Signup"
-import studentHome from "./pages/studentHome"
-import supervisorHome from "./pages/supervisorHome"
-import hodHome from "./pages/hodHome"
 import SignupForm from "./pages/signupForm"
 import RequestForm from "./pages/RequestForm"
-import Requests from "./pages/Requests"
 import account from "./pages/account"
 import accountManagment from "./pages/accountManagment"
 import NewAccountForm from "./pages/newaccountForm"
@@ -33,13 +29,8 @@ function App() {
         <Route path="/newaccountForm" Component={NewAccountForm} />
         <Route path="/accountManagment" Component={accountManagment} />
         <Route path="/account" Component={account} />
-        <Route path="/Requests" Component={Requests} />
         <Route path="/requestForm" Component={RequestForm} />
         <Route path="/signupForm" Component={SignupForm} />
-        <Route path="/hodHome" Component={hodHome} />
-        <Route path="/supervisorHome" Component={supervisorHome} />
-        <Route path="/studentHome" Component={studentHome} />
-        <Route path="/Home" Component={Home} />
         <Route path="/Signup" Component={Signup} />
         <Route path="/Login" Component={Login} />
       </Routes>

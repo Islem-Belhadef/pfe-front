@@ -1,6 +1,6 @@
 import { RiAccountCircleLine } from "react-icons/ri"
 import bgformIcon from "../assets/bgform.jpg"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const Account = () => {
   const [oldPassword, setOldPassword] = useState("")
@@ -15,14 +15,14 @@ const Account = () => {
     authAxios
       .get("/requests")
       .then((response) => {
-        setRequests(response.data.requests);
-        setUser(response.data.user);
-        console.error(response.data.requests);
+        setRequests(response.data.requests)
+        setUser(response.data.user)
+        console.error(response.data.requests)
       })
       .catch((error) => {
-        console.error(error.response.data);
-      });
-  }, []);
+        console.error(error.response.data)
+      })
+  }, [])
   return (
     <div className="relative font-ralewey">
       <div className="h-screen w-screen flex flex-col items-center justify-center">
@@ -39,7 +39,8 @@ const Account = () => {
                     <RiAccountCircleLine className="text-7xl cursor-pointer" />
                   </h1>
                   <h2 className="text-black font-semibold text-xl py-2 px-4">
-                  {user.first_name}{user.last_name}
+                    {user.first_name}
+                    {user.last_name}
                   </h2>
                 </div>
                 <div className="flex flex-row gap-4">

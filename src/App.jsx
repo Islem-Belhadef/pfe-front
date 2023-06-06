@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  redirect,
+} from "react-router-dom"
 
 import Login from "./pages/Login"
 import Home from "./pages/Home"
@@ -8,8 +13,7 @@ import RequestForm from "./pages/RequestForm"
 import account from "./pages/account"
 import accountManagment from "./pages/accountManagment"
 import NewAccountForm from "./pages/newaccountForm"
-import StudentInternship from "./pages/studentInternship"
-import SupervisorInternship from "./pages/supervisorInternship"
+import Internships from "./pages/Internships"
 import notation from "./pages/notation"
 import presence from "./pages/presence"
 import AuthHome from "./pages/AuthHome"
@@ -22,10 +26,15 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" Component={home} />
-        <Route path="/supervisorInternship/presence" Component={presence} />
-        <Route path="/supervisorInternship/notation" Component={notation} />
-        <Route path="/supervisorInternship" Component={SupervisorInternship} />
-        <Route path="/studentInternship" Component={StudentInternship} />
+        <Route
+          path="/internship/presence"
+          Component={role == 2 ? presence : redirect("/")}
+        />
+        <Route
+          path="/internship/notation"
+          Component={role == 2 ? notation : redirect("/")}
+        />
+        <Route path="/internships" Component={Internships} />
         <Route path="/newaccountForm" Component={NewAccountForm} />
         <Route path="/accountManagment" Component={accountManagment} />
         <Route path="/account" Component={account} />

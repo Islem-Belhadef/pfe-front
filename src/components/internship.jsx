@@ -1,25 +1,8 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import authAxios from "../api/axios";
+import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
+import authAxios from "../api/axios"
 
-const Internship = ({ page }) => {
-  const [requests, setRequests] = useState([]);
-  const [user, setUser] = useState({});
-  const [request, setRequest] = useState({});
-
-  useEffect(() => {
-    authAxios
-      .get("/requests")
-      .then((response) => {
-        setRequests(response.data.requests);
-        setUser(response.data.user);
-        console.error(response.data.requests);
-      })
-      .catch((error) => {
-        console.error(error.response.data);
-      });
-  }, []);
-
+const Internship = ({ page, internship, user }) => {
   return (
     <div className="bg-white p-4 rounded-lg">
       <div className="flex flex-row">
@@ -56,7 +39,7 @@ const Internship = ({ page }) => {
         <p id="status">{request.status}</p>
       </div>
       <div className="flex flex-row justify-around gap-10">
-        {page === "supervisorInternship"  && (
+        {page == "supervisorInternship" && (
           <div>
             <Link
               to="presence"
@@ -67,7 +50,7 @@ const Internship = ({ page }) => {
           </div>
         )}
 
-        {page === "supervisorInternship"  && (
+        {page == "supervisorInternship" && (
           <div>
             <Link
               to="notation"
@@ -79,7 +62,7 @@ const Internship = ({ page }) => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Internship;
+export default Internship

@@ -6,17 +6,21 @@ import authAxios from "../api/axios"
 import { useState } from "react"
 
 const StudentInternship = () => {
+  const type = window.localStorage.getItem("role")
+  const page =
+    type == 0 ? "studentHome" : type == 2 ? "supervisorInternship" : "else"
+
   const [internships, setInternships] = useState([])
 
   useEffect(() => {
     authAxios
       .get("http://127.0.0.1:8000/api/internships")
-      .then((res) => {
-        console.log()
-        setInternships(res.data.internships)
+      .then((response) => {
+        setInternships(response.data.allInternships)
+        console.log(response.data)
       })
-      .catch((err) => {
-        console.log(err.response.data)
+      .catch((error) => {
+        console.error(error.response.data)
       })
   }, [])
 
@@ -32,22 +36,15 @@ const StudentInternship = () => {
           <div className="bg-primary opacity-50 w-full h-full absolute"></div>
 
           <div className="absolute top-0 left-0 w-full h-full ">
-            <div className="flex flex-col justify-around text-base">
-              <div className=" flex flex-row justify-around gap-7 pt-5 ">
-                <Internship />
-                <Internship />
-                <Internship />
-              </div>
-              <div className=" flex flex-row justify-around gap-7 pt-5">
-                <Internship />
-                <Internship />
-                <Internship />
-              </div>
-              <div className=" flex flex-row justify-around gap-7 pt-5">
-                <Internship />
-                <Internship />
-                <Internship />
-              </div>
+            <div className="grid grid-cols-3 justify-around text-base gap-6 p-8">
+              {internships.map((internship) => (
+                <Internship
+                  page={page}
+                  internship={internship.internship}
+                  user={internship.user}
+                  key={internship.internship.id}
+                />
+              ))}
             </div>
           </div>
         </div>

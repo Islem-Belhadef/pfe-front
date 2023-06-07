@@ -2,7 +2,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  redirect,
+  Navigate,
 } from "react-router-dom"
 
 import Login from "./pages/Login"
@@ -14,9 +14,9 @@ import account from "./pages/account"
 import accountManagment from "./pages/accountManagment"
 import NewAccountForm from "./pages/newaccountForm"
 import Internships from "./pages/Internships"
-import notation from "./pages/notation"
-import presence from "./pages/presence"
 import AuthHome from "./pages/AuthHome"
+import Presence from "./pages/presence"
+import Notation from "./pages/notation"
 
 function App() {
   const role = window.localStorage.getItem("role")
@@ -28,11 +28,11 @@ function App() {
         <Route path="/" Component={home} />
         <Route
           path="/internship/presence"
-          Component={role == 2 ? presence : redirect("/")}
+          element={role == 2 ? <Presence /> : <Navigate to="/" replace />}
         />
         <Route
-          path="/internship/notation"
-          Component={role == 2 ? notation : redirect("/")}
+          path="/internship/notation/:id"
+          element={role == 2 ? <Notation /> : <Navigate to="/" replace />}
         />
         <Route path="/internships" Component={Internships} />
         <Route path="/newaccountForm" Component={NewAccountForm} />

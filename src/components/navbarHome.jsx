@@ -6,7 +6,7 @@ import authAxios from "../api/axios"
 const NavbarHome = ({ page }) => {
   const navigate = useNavigate()
   const [showMenu, setShowMenu] = useState(false)
-
+  const role = window.localStorage.getItem("role")
   const handleIconClick = () => {
     setShowMenu(!showMenu)
   }
@@ -22,45 +22,30 @@ const NavbarHome = ({ page }) => {
       })
       .catch((err) => console.log(err))
   }
-
+  const Links =
+    role == 0 ? (
+      <Link to="/Internships" className="mx-2">
+        Internship
+      </Link>
+    ) : role == 1 ? (
+      <Link to="/accountManagment" className="mx-2">
+        Manage Accounts
+      </Link>
+    ) : (
+      <Link to="/Internships" className="mx-2">
+        Internship
+      </Link>
+    )
   return (
     <div className="flex justify-between font-ralewey text-2xl my-5 mx-16">
       <div className="flex justify-start text-5xl">
         <h1 className="text-primary">InternShip</h1>
       </div>
       <div className="flex justify-center items-center gap-4">
-        <div>
-          {(page === "hodHome" || page === "accountManagment") && (
-            <Link to="/accountManagment" className="mx-2">
-              Manage Accounts
-            </Link>
-          )}
-        </div>
-        {(page === "hodHome" || page === "accountManagment") &&(
-          <Link to="/hodHome" className="mx-2">
+        {Links}
+        <Link to="/" className="mx-2">
           Requests
         </Link>
-        )}
-        {(page === "studentHome" || page === "studentInternship") &&(
-          <Link to="/studentHome" className="mx-2">
-          Requests
-        </Link>
-        )}
-        {(page === "supervisorHome" || page === "supervisorInternship") &&(
-          <Link to="/supervisorHome" className="mx-2">
-          Requests
-        </Link>
-        )}
-        {(page === "supervisorHome" || page === "supervisorInternship") &&(
-          <Link to="/supervisorInternship" className="mx-2">
-          Internship
-        </Link>
-        )}
-        {(page === "studentHome" || page === "studentInternship") &&(
-          <Link to="/studentInternship" className="mx-2">
-          Internship
-        </Link>
-        )}
       </div>
       <div className="flex justify-end items-center">
         <RiAccountCircleLine

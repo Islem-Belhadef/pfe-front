@@ -5,7 +5,7 @@ import { useEffect } from "react"
 import authAxios from "../api/axios"
 import { useState } from "react"
 
-const StudentInternship = () => {
+const Internships = () => {
   const type = window.localStorage.getItem("role")
   const page =
     type == 0 ? "studentHome" : type == 2 ? "supervisorInternship" : "else"
@@ -53,4 +53,4 @@ const StudentInternship = () => {
   )
 }
 
-export default StudentInternship
+export default Internships

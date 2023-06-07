@@ -1,8 +1,14 @@
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { useState } from "react"
 import bgformIcon from "../assets/bgform.jpg"
+import authAxios from "../api/axios"
 
 const Notation = () => {
+  const params = useParams()
+  const { id } = params
+
+  console.log(id)
+
   const [values, setValues] = useState({
     aptitude: "",
     initiative: "",
@@ -52,6 +58,46 @@ const Notation = () => {
     setFinalMark(finalMark)
   }
 
+  // const { state } = useLocation()
+  // const { internship } = state
+
+  // console.log(internship.id)
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    console.log(
+      values.aptitude +
+        " " +
+        values.initiative +
+        " " +
+        values.innovation +
+        " " +
+        values.acquired_knowledge +
+        " " +
+        values.discipline +
+        " " +
+        finalMark
+    )
+
+    authAxios
+      .post(`http://127.0.0.1:8000/api/notation/${id}`, {
+        aptitude: values.aptitude,
+        initiative: values.initiative,
+        innovation: values.innovation,
+        acquired_knowledge: values.acquired_knowledge,
+        discipline: values.discipline,
+        note: finalMark,
+      })
+      .then((res) => {
+        console.log(res.data)
+        navigate("/internships")
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
   return (
     <div className="relative font-ralewey">
       <div className="h-screen w-screen flex flex-col items-center justify-center">
@@ -71,115 +117,117 @@ const Notation = () => {
                     Fill up the form to note the intern
                   </h2>
                 </div>
-                <form className="flex justify-center gap-20">
-                  <div className="flex flex-col gap-4 text-black">
-                    <div className="flex flex-col">
-                      <label
-                        htmlFor="aptitude"
-                        className="text-black font-semibold text-base font-Mon"
-                      >
-                        Aptitude
-                      </label>
-                      <input
-                        type="text"
-                        name="aptitude"
-                        value={values.aptitude}
-                        onChange={handleInputChange}
-                        className="inputs px-2 border-2 border-primary rounded-md w-64"
-                      />
+                <form onSubmit={handleSubmit}>
+                  <div className="flex justify-center gap-20">
+                    <div className="flex flex-col gap-4 text-black">
+                      <div className="flex flex-col">
+                        <label
+                          htmlFor="aptitude"
+                          className="text-black font-semibold text-base font-Mon"
+                        >
+                          Aptitude
+                        </label>
+                        <input
+                          type="text"
+                          name="aptitude"
+                          value={values.aptitude}
+                          onChange={handleInputChange}
+                          className="inputs px-2 border-2 border-primary rounded-md w-64"
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <label
+                          htmlFor="initiative"
+                          className="text-black font-semibold text-base font-Mon"
+                        >
+                          Initiative
+                        </label>
+                        <input
+                          type="text"
+                          name="initiative"
+                          value={values.initiative}
+                          onChange={handleInputChange}
+                          className="inputs px-2 border-2 border-primary rounded-md w-64"
+                        />
+                      </div>
                     </div>
-                    <div className="flex flex-col">
-                      <label
-                        htmlFor="initiative"
-                        className="text-black font-semibold text-base font-Mon"
-                      >
-                        Initiative
-                      </label>
-                      <input
-                        type="text"
-                        name="initiative"
-                        value={values.initiative}
-                        onChange={handleInputChange}
-                        className="inputs px-2 border-2 border-primary rounded-md w-64"
-                      />
+                    <div className="flex flex-col gap-4 text-black">
+                      <div className="flex flex-col">
+                        <label
+                          htmlFor="innovation"
+                          className="text-black font-semibold text-base font-Mon"
+                        >
+                          Innovation
+                        </label>
+                        <input
+                          type="text"
+                          name="innovation"
+                          value={values.innovation}
+                          onChange={handleInputChange}
+                          className="inputs px-2 border-2 border-primary rounded-md w-64"
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <label
+                          htmlFor="acquired_knowledge"
+                          className="text-black font-semibold text-base font-Mon"
+                        >
+                          Acquired knowledge
+                        </label>
+                        <input
+                          type="text"
+                          name="acquired_knowledge"
+                          value={values.acquired_knowledge}
+                          onChange={handleInputChange}
+                          className="inputs px-2 border-2 border-primary rounded-md w-64"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-4 text-black">
+                      <div className="flex flex-col">
+                        <label
+                          htmlFor="discipline"
+                          className="text-black font-semibold text-base font-Mon"
+                        >
+                          Discipline
+                        </label>
+                        <input
+                          type="text"
+                          name="discipline"
+                          value={values.discipline}
+                          onChange={handleInputChange}
+                          className="inputs px-2 border-2 border-primary rounded-md w-64"
+                        />
+                      </div>
+                      <div>
+                        <p className="font-bold">The final mark is:</p>
+                        {showError && (
+                          <p className="text-red-500">
+                            The mark cannot exceed 20
+                          </p>
+                        )}
+                        {!showError && (
+                          <p className="font-semibold">{finalMark}</p>
+                        )}
+                      </div>
                     </div>
                   </div>
-                  <div className="flex flex-col gap-4 text-black">
-                    <div className="flex flex-col">
-                      <label
-                        htmlFor="innovation"
-                        className="text-black font-semibold text-base font-Mon"
-                      >
-                        Innovation
-                      </label>
-                      <input
-                        type="text"
-                        name="innovation"
-                        value={values.innovation}
-                        onChange={handleInputChange}
-                        className="inputs px-2 border-2 border-primary rounded-md w-64"
-                      />
-                    </div>
-                    <div className="flex flex-col">
-                      <label
-                        htmlFor="acquired_knowledge"
-                        className="text-black font-semibold text-base font-Mon"
-                      >
-                        Acquired knowledge
-                      </label>
-                      <input
-                        type="text"
-                        name="acquired_knowledge"
-                        value={values.acquired_knowledge}
-                        onChange={handleInputChange}
-                        className="inputs px-2 border-2 border-primary rounded-md w-64"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-4 text-black">
-                    <div className="flex flex-col">
-                      <label
-                        htmlFor="discipline"
-                        className="text-black font-semibold text-base font-Mon"
-                      >
-                        Discipline
-                      </label>
-                      <input
-                        type="text"
-                        name="discipline"
-                        value={values.discipline}
-                        onChange={handleInputChange}
-                        className="inputs px-2 border-2 border-primary rounded-md w-64"
-                      />
-                    </div>
-                    <div>
-                      <p className="font-bold">The final mark is:</p>
-                      {showError && (
-                        <p className="text-red-500">
-                          The mark cannot exceed 20
-                        </p>
-                      )}
-                      {!showError && (
-                        <p className="font-semibold">{finalMark}</p>
-                      )}
-                    </div>
+                  <div className="flex justify-center gap-10 mt-6">
+                    <button
+                      type="button"
+                      onClick={calculateFinalMark}
+                      className="flex justify-center focus:outline-none text-white bg-green-700 hover:bg-green-900 font-semibold rounded-lg text-sm px-5 py-2.5 mb-2 w-20 h-9 text-center"
+                    >
+                      Calculate
+                    </button>
+                    <button
+                      type="submit"
+                      className="flex justify-center focus:outline-none text-white bg-green-700 hover:bg-green-900 font-semibold rounded-lg text-sm px-5 py-2.5 mb-2 w-20 h-9 text-center"
+                    >
+                      Submit
+                    </button>
                   </div>
                 </form>
-                <div className="flex justify-center gap-24 pt-2">
-                  <button
-                    type="button"
-                    onClick={calculateFinalMark}
-                    className="flex justify-center focus:outline-none text-white bg-green-700 hover:bg-green-900 font-semibold rounded-lg text-sm px-5 py-2.5 mb-2 w-20 h-9 text-center"
-                  >
-                    Calculate
-                  </button>
-                  <button
-                    type="submit"
-                    className="flex justify-center focus:outline-none text-white bg-green-700 hover:bg-green-900 font-semibold rounded-lg text-sm px-5 py-2.5 mb-2 w-20 h-9 text-center"
-                  >
-                    Submit
-                  </button>
-                </div>
               </div>
             </div>
           </div>
